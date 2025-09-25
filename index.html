@@ -1,148 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Web3 Runner - Cyber Platformer</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Orbitron', monospace;
-            background: linear-gradient(45deg, #0a0a0a, #1a0033, #000011);
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            color: #00ffff;
-        }
-
-        #gameContainer {
-            position: relative;
-            width: 100vw;
-            height: 100vh;
-            max-width: 1200px;
-            max-height: 800px;
-            border: 2px solid #00ffff;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 0 50px rgba(0, 255, 255, 0.5);
-        }
-
-        canvas {
-            display: block;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(180deg, #001122 0%, #003344 50%, #001133 100%);
-        }
-
-        #ui {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            right: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
-            font-weight: 700;
-            text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
-        }
-
-        .ui-element {
-            background: rgba(0, 0, 0, 0.7);
-            padding: 10px 15px;
-            border-radius: 10px;
-            border: 1px solid #00ffff;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-            backdrop-filter: blur(10px);
-        }
-
-        #startScreen, #gameOverScreen {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 200;
-            backdrop-filter: blur(5px);
-        }
-
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            background: linear-gradient(45deg, #00ffff, #ff00ff, #ffff00);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes glow {
-            from { filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.5)); }
-            to { filter: drop-shadow(0 0 20px rgba(255, 0, 255, 0.8)); }
-        }
-
-        button {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.2rem;
-            font-weight: 700;
-            padding: 15px 30px;
-            margin: 10px;
-            background: linear-gradient(45deg, #00ffff, #0099cc);
-            color: #000;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
-        }
-
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
-        }
-
-        #instructions {
-            text-align: center;
-            margin: 20px 0;
-            font-size: 1rem;
-            color: #cccccc;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        @media (max-width: 768px) {
-            h1 { font-size: 2rem; }
-            button { font-size: 1rem; padding: 12px 25px; }
-            .ui-element { padding: 8px 12px; font-size: 0.9rem; }
-        }
+        body { margin: 0; font-family: 'Orbitron', monospace; background: #0a0a0a; color: #00ffff; }
+        #gameContainer { position: relative; width: 100vw; height: 100vh; max-width:1200px; max-height:800px; border:2px solid #00ffff; border-radius:10px; overflow:hidden; margin:auto; box-shadow:0 0 50px rgba(0,255,255,0.5);}
+        canvas { display: block; width: 100%; height: 100%; background: linear-gradient(180deg, #001122 0%, #003344 50%, #001133 100%);}
+        #ui {position: absolute; top: 20px; left: 20px; right: 20px; display: flex; justify-content: space-between; align-items: center; z-index: 100; font-weight: 700; text-shadow: 0 0 10px rgba(0,255,255,0.8);}
+        .ui-element {background:rgba(0,0,0,0.7);padding:10px 15px;border-radius:10px;border:1px solid #00ffff;box-shadow:0 0 20px rgba(0,255,255,0.3);}
+        #startScreen,#gameOverScreen {position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:200;}
+        .hidden { display: none !important; }
+        h1 {font-size:2.5rem;margin-bottom:20px;background:linear-gradient(45deg,#00ffff,#ff00ff,#ffff00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:glow 2s ease-in-out infinite alternate;}
+        @keyframes glow {from { filter:drop-shadow(0 0 10px rgba(0,255,255,0.5)); } to { filter:drop-shadow(0 0 20px rgba(255,0,255,0.8)); } }
+        button {font-family:'Orbitron',monospace;font-size:1.2rem;font-weight:700;padding:15px 30px;margin:10px;background:linear-gradient(45deg,#00ffff,#0099cc);color:#000;border:none;border-radius:25px;cursor:pointer;}
+        button:hover {transform:translateY(-2px);box-shadow:0 0 30px rgba(0,255,255,0.8);}
+        #instructions {text-align:center;margin:20px 0;font-size:1rem;color:#cccccc;}
+        @media (max-width:768px){h1{font-size:1.5rem;}button{font-size:1rem;}}
     </style>
 </head>
 <body>
     <div id="gameContainer">
         <canvas id="gameCanvas"></canvas>
-        
         <div id="ui">
             <div class="ui-element">Score: <span id="score">0</span></div>
             <div class="ui-element">Level: <span id="level">1</span></div>
             <div class="ui-element">Lives: <span id="lives">3</span></div>
         </div>
-
         <div id="startScreen">
             <h1>WEB3 RUNNER</h1>
             <div id="instructions">
@@ -153,20 +39,16 @@
             </div>
             <button onclick="startGame()">START GAME</button>
         </div>
-
         <div id="gameOverScreen" class="hidden">
             <h1>GAME OVER</h1>
             <p id="finalScore">Final Score: 0</p>
             <button onclick="restartGame()">PLAY AGAIN</button>
         </div>
     </div>
-
     <script>
         // Game variables
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
-        
-        // Set canvas size
         function resizeCanvas() {
             const container = document.getElementById('gameContainer');
             canvas.width = container.clientWidth;
@@ -174,403 +56,110 @@
         }
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
-
-        // Game state
-        let gameRunning = false;
-        let gameSpeed = 2;
-        let score = 0;
-        let level = 1;
-        let lives = 3;
-        let camera = { x: 0, y: 0 };
-        
-        // Player object
-        const player = {
-            x: 100,
-            y: canvas.height - 150,
-            width: 32,
-            height: 32,
-            velX: 0,
-            velY: 0,
-            jumping: false,
-            grounded: false,
-            color: '#00ffff'
-        };
-
-        // Game objects arrays
-        let platforms = [];
-        let obstacles = [];
-        let coins = [];
-        let particles = [];
-        let backgroundElements = [];
-
-        // Input handling
-        const keys = {};
-
-        // Event listeners for jump only
-        document.addEventListener('keydown', (e) => {
-            if (e.code === 'Space' || e.code === 'ArrowUp' || e.code === 'KeyW') {
-                e.preventDefault();
-                jump();
-            }
-        });
-
-        // Touch controls for jump only
-        canvas.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            jump();
-        });
-
-        // Jump function
-        function jump() {
-            if (player.grounded && gameRunning) {
-                player.velY = -15;
-                player.jumping = true;
-                player.grounded = false;
-            }
-        }
-
-        // Initialize game world
+        let gameRunning=false,gameSpeed=2,score=0,level=1,lives=3,camera={x:0,y:0};
+        const player={x:100,y:canvas.height-150,width:32,height:32,velX:0,velY:0,jumping:false,grounded:false,color:'#00ffff'};
+        let platforms=[],obstacles=[],coins=[],particles=[],backgroundElements=[];
+        document.addEventListener('keydown',e=>{if(['Space','ArrowUp','KeyW'].includes(e.code)){e.preventDefault();jump();}});
+        canvas.addEventListener('touchstart',e=>{e.preventDefault();jump();});
+        function jump(){if(player.grounded&&gameRunning){player.velY=-15;player.jumping=true;player.grounded=false;}}
         function initGame() {
-            platforms = [];
-            obstacles = [];
-            coins = [];
-            particles = [];
-            backgroundElements = [];
-            
-            // Create platforms
-            for (let i = 0; i < 50; i++) {
-                platforms.push({
-                    x: i * 200 + Math.random() * 100,
-                    y: canvas.height - 100 - Math.random() * 200,
-                    width: 150 + Math.random() * 100,
-                    height: 20,
-                    glow: Math.random() * 2
-                });
-            }
-            
-            // Create obstacles (Rialo logos)
-            for (let i = 0; i < 30; i++) {
-                obstacles.push({
-                    x: 300 + i * 300 + Math.random() * 200,
-                    y: canvas.height - 200 - Math.random() * 300,
-                    size: 40 + Math.random() * 30,
-                    rotation: 0,
-                    rotSpeed: 0.01 + Math.random() * 0.03,
-                    moveY: Math.random() * 1.5 - 0.75,
-                    originalY: 0
-                });
-                obstacles[obstacles.length - 1].originalY = obstacles[obstacles.length - 1].y;
-            }
-            
-            // Create coins
-            for (let i = 0; i < 40; i++) {
-                coins.push({
-                    x: 200 + i * 200 + Math.random() * 150,
-                    y: canvas.height - 150 - Math.random() * 250,
-                    size: 20,
-                    rotation: 0,
-                    collected: false,
-                    glow: 0
-                });
-            }
-            
-            // Create background elements
-            for (let i = 0; i < 20; i++) {
-                const texts = ['RETHINK', 'REBUILD', 'RIALO'];
-                backgroundElements.push({
-                    x: i * 400,
-                    y: 50 + Math.random() * 200,
-                    text: texts[i % 3],
-                    alpha: 0.3 + Math.random() * 0.4,
-                    scale: 0.8 + Math.random() * 0.5
-                });
-            }
-            
-            // Reset player position
-            player.x = 100;
-            player.y = canvas.height - 150;
-            player.velX = 0;
-            player.velY = 0;
-            camera.x = 0;
+            platforms=[];obstacles=[];coins=[];particles=[];backgroundElements=[];
+            for(let i=0;i<50;i++)platforms.push({x:i*200+Math.random()*100,y:canvas.height-100-Math.random()*200,width:150+Math.random()*100,height:20,glow:Math.random()*2});
+            for(let i=0;i<30;i++){obstacles.push({x:300+i*300+Math.random()*200,y:canvas.height-200-Math.random()*300,size:40+Math.random()*30,rotation:0,rotSpeed:0.01+Math.random()*0.03,moveY:Math.random()*1.5-0.75,originalY:0});obstacles[obstacles.length-1].originalY=obstacles[obstacles.length-1].y;}
+            for(let i=0;i<40;i++)coins.push({x:200+i*200+Math.random()*150,y:canvas.height-150-Math.random()*250,size:20,rotation:0,collected:false,glow:0});
+            const texts=['RETHINK','REBUILD','RIALO'];for(let i=0;i<20;i++)backgroundElements.push({x:i*400,y:50+Math.random()*200,text:texts[i%3],alpha:0.3+Math.random()*0.4,scale:0.8+Math.random()*0.5});
+            player.x=100;player.y=canvas.height-150;player.velX=0;player.velY=0;player.grounded=false;player.jumping=false;player.color='#00ffff';camera.x=0;
         }
-
-        // Draw the exact logo obstacle matching your image
-        function drawRialoLogo(x, y, size, rotation) {
-            ctx.save();
-            ctx.translate(x, y);
-            ctx.rotate(rotation);
-            
-            // Glow effect
-            ctx.shadowColor = '#ff00ff';
-            ctx.shadowBlur = 20;
-            
-            ctx.fillStyle = '#000000';
-            ctx.strokeStyle = '#ff00ff';
-            ctx.lineWidth = 1;
-            
-            // Scale factor for the logo
-            const scale = size / 100;
-            
-            // Draw the exact shape from your image
-            ctx.beginPath();
-            
-            // Top curved piece (like a rounded rectangle with right curve)
-            ctx.roundRect(-40 * scale, -35 * scale, 60 * scale, 18 * scale, 9 * scale);
-            ctx.fill();
-            
-            // Top right extension (the bulge)
-            ctx.beginPath();
-            ctx.roundRect(15 * scale, -35 * scale, 30 * scale, 18 * scale, 9 * scale);
-            ctx.fill();
-            
-            // Middle horizontal piece (longer)
-            ctx.beginPath();
-            ctx.roundRect(-40 * scale, -8 * scale, 70 * scale, 18 * scale, 9 * scale);
-            ctx.fill();
-            
-            // Bottom vertical piece (the descender)
-            ctx.beginPath();
-            ctx.roundRect(-40 * scale, 18 * scale, 18 * scale, 35 * scale, 9 * scale);
-            ctx.fill();
-            
-            // Add subtle outline for definition
-            ctx.strokeStyle = '#ff00ff';
-            ctx.lineWidth = 0.5;
-            
-            ctx.beginPath();
-            ctx.roundRect(-40 * scale, -35 * scale, 60 * scale, 18 * scale, 9 * scale);
-            ctx.stroke();
-            
-            ctx.beginPath();
-            ctx.roundRect(15 * scale, -35 * scale, 30 * scale, 18 * scale, 9 * scale);
-            ctx.stroke();
-            
-            ctx.beginPath();
-            ctx.roundRect(-40 * scale, -8 * scale, 70 * scale, 18 * scale, 9 * scale);
-            ctx.stroke();
-            
-            ctx.beginPath();
-            ctx.roundRect(-40 * scale, 18 * scale, 18 * scale, 35 * scale, 9 * scale);
-            ctx.stroke();
-            
-            ctx.restore();
+        function gameLoop() {
+            if(!gameRunning)return;updateGame();drawGame();requestAnimationFrame(gameLoop);
         }
-
-        // Draw player
-        function drawPlayer() {
-            ctx.save();
-            
-            // Glow effect
-            ctx.shadowColor = player.color;
-            ctx.shadowBlur = 15;
-            
-            // Player body (futuristic runner)
-            ctx.fillStyle = player.color;
-            ctx.fillRect(player.x - camera.x, player.y, player.width, player.height);
-            
-            // Add some details
-            ctx.fillStyle = '#ffffff';
-            ctx.fillRect(player.x - camera.x + 8, player.y + 8, 4, 4); // Visor
-            ctx.fillRect(player.x - camera.x + 20, player.y + 8, 4, 4);
-            
-            // Web3 symbol on chest
-            ctx.fillStyle = '#ffff00';
-            ctx.font = '12px Orbitron';
-            ctx.fillText('₿', player.x - camera.x + 12, player.y + 24);
-            
-            ctx.restore();
-        }
-
-        // Draw platforms
-        function drawPlatforms() {
-            platforms.forEach(platform => {
-                if (platform.x - camera.x + platform.width > 0 && platform.x - camera.x < canvas.width) {
-                    ctx.save();
-                    
-                    // Animated glow
-                    platform.glow += 0.05;
-                    ctx.shadowColor = `hsl(${180 + Math.sin(platform.glow) * 60}, 100%, 50%)`;
-                    ctx.shadowBlur = 10 + Math.sin(platform.glow) * 5;
-                    
-                    const gradient = ctx.createLinearGradient(0, platform.y, 0, platform.y + platform.height);
-                    gradient.addColorStop(0, '#003366');
-                    gradient.addColorStop(1, '#001133');
-                    
-                    ctx.fillStyle = gradient;
-                    ctx.fillRect(platform.x - camera.x, platform.y, platform.width, platform.height);
-                    
-                    // Top highlight
-                    ctx.fillStyle = '#00ffff';
-                    ctx.fillRect(platform.x - camera.x, platform.y, platform.width, 2);
-                    
-                    ctx.restore();
-                }
-            });
-        }
-
-        // Draw coins
-        function drawCoins() {
-            coins.forEach(coin => {
-                if (!coin.collected && coin.x - camera.x + coin.size > 0 && coin.x - camera.x < canvas.width) {
-                    coin.rotation += 0.1;
-                    coin.glow += 0.15;
-                    
-                    ctx.save();
-                    ctx.translate(coin.x - camera.x + coin.size/2, coin.y + coin.size/2);
-                    ctx.rotate(coin.rotation);
-                    
-                    // Coin glow
-                    ctx.shadowColor = '#ffff00';
-                    ctx.shadowBlur = 15 + Math.sin(coin.glow) * 5;
-                    
-                    // Coin body
-                    ctx.fillStyle = '#ffff00';
-                    ctx.beginPath();
-                    ctx.arc(0, 0, coin.size/2, 0, Math.PI * 2);
-                    ctx.fill();
-                    
-                    // Inner detail
-                    ctx.fillStyle = '#ffffff';
-                    ctx.font = '12px Orbitron';
-                    ctx.textAlign = 'center';
-                    ctx.fillText('₿', 0, 4);
-                    
-                    ctx.restore();
-                }
-            });
-        }
-
-        // Draw background
-        function drawBackground() {
-            // Animated background gradient
-            const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-            gradient.addColorStop(0, '#001122');
-            gradient.addColorStop(0.5, '#003344');
-            gradient.addColorStop(1, '#001133');
-            
-            ctx.fillStyle = gradient;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            // Background elements (Web3 text)
-            ctx.save();
-            backgroundElements.forEach(element => {
-                if (element.x - camera.x * 0.5 + 200 > 0 && element.x - camera.x * 0.5 < canvas.width) {
-                    ctx.globalAlpha = element.alpha;
-                    ctx.fillStyle = '#00ffff';
-                    ctx.font = `${40 * element.scale}px Orbitron`;
-                    ctx.fillText(element.text, element.x - camera.x * 0.5, element.y);
-                }
-            });
-            ctx.restore();
-        }
-
-        // Update game logic
         function updateGame() {
-            if (!gameRunning) return;
-            
-            // Auto-runner: Player moves automatically
-            player.x += gameSpeed;
-            
-            // Apply gravity
-            if (!player.grounded) {
-                player.velY += 0.8;
-            }
-            
-            // Update player position (only Y movement from jumping)
-            player.y += player.velY;
-            
-            // Camera follows player
-            camera.x = player.x - canvas.width / 3;
-            
-            // Platform collision
-            player.grounded = false;
-            platforms.forEach(platform => {
-                if (player.x < platform.x + platform.width &&
-                    player.x + player.width > platform.x &&
-                    player.y + player.height > platform.y &&
-                    player.y + player.height < platform.y + platform.height + 20) {
-                    
-                    if (player.velY > 0) {
-                        player.y = platform.y - player.height;
-                        player.velY = 0;
-                        player.grounded = true;
-                        player.jumping = false;
-                    }
+            if(!gameRunning)return;
+            player.x+=gameSpeed;if(!player.grounded)player.velY+=0.8;player.y+=player.velY;camera.x=player.x-canvas.width/3;player.grounded=false;
+            platforms.forEach(platform=>{if(player.x<platform.x+platform.width&&player.x+player.width>platform.x&&player.y+player.height>platform.y&&player.y+player.height<platform.y+platform.height+20){if(player.velY>0){player.y=platform.y-player.height;player.velY=0;player.grounded=true;player.jumping=false;}}});
+            if(player.y>canvas.height-50){player.y=canvas.height-50;player.velY=0;player.grounded=true;player.jumping=false;}
+            obstacles.forEach(obstacle=>{
+                obstacle.rotation+=obstacle.rotSpeed;
+                obstacle.y=obstacle.originalY+Math.sin(Date.now()*0.003+obstacle.x)*30;
+                const dx=player.x+player.width/2-(obstacle.x+obstacle.size/2),dy=player.y+player.height/2-(obstacle.y+obstacle.size/2),distance=Math.sqrt(dx*dx+dy*dy);
+                if(distance<(obstacle.size/2+player.width/3)){lives--;if(lives<=0){gameOver();return;}player.x-=50;player.velY=-10;player.color='#ff0000';setTimeout(()=>player.color='#00ffff',1000);}
+            });
+            coins.forEach(coin=>{
+                if(!coin.collected){
+                    const dx=player.x+player.width/2-(coin.x+coin.size/2),dy=player.y+player.height/2-(coin.y+coin.size/2),distance=Math.sqrt(dx*dx+dy*dy);
+                    if(distance<(coin.size/2+player.width/2)){coin.collected=true;score+=100;for(let i=0;i<8;i++)particles.push({x:coin.x,y:coin.y,velX:(Math.random()-0.5)*10,velY:(Math.random()-0.5)*10,life:30,color:'#ffff00'});}
                 }
             });
-            
-            // Ground collision
-            if (player.y > canvas.height - 50) {
-                player.y = canvas.height - 50;
-                player.velY = 0;
-                player.grounded = true;
-                player.jumping = false;
-            }
-            
-            // Update obstacles
-            obstacles.forEach(obstacle => {
-                obstacle.rotation += obstacle.rotSpeed;
-                obstacle.y = obstacle.originalY + Math.sin(Date.now() * 0.003 + obstacle.x) * 30;
-                
-                // Collision with player
-                const dx = player.x + player.width/2 - (obstacle.x + obstacle.size/2);
-                const dy = player.y + player.height/2 - (obstacle.y + obstacle.size/2);
-                const distance = Math.sqrt(dx*dx + dy*dy);
-                
-                if (distance < (obstacle.size/2 + player.width/3)) {
-                    // Player hit obstacle
-                    lives--;
-                    if (lives <= 0) {
-                        gameOver();
-                        return;
-                    }
-                    // Knockback
-                    player.x -= 50;
-                    player.velY = -10;
-                    // Brief invincibility
-                    player.color = '#ff0000';
-                    setTimeout(() => player.color = '#00ffff', 1000);
+            particles=particles.filter(particle=>{particle.x+=particle.velX;particle.y+=particle.velY;particle.life--;return particle.life>0;});
+            if(score>level*1000){level++;gameSpeed+=0.5;if(level%2===0){obstacles.push({x:player.x+canvas.width+Math.random()*500,y:canvas.height-200-Math.random()*300,size:40+Math.random()*30,rotation:0,rotSpeed:0.01+Math.random()*0.03,moveY:Math.random()*1.5-0.75,originalY:0});obstacles[obstacles.length-1].originalY=obstacles[obstacles.length-1].y;}platforms.push({x:player.x+canvas.width+Math.random()*500,y:canvas.height-100-Math.random()*200,width:150+Math.random()*100,height:20,glow:Math.random()*2});}
+            document.getElementById('score').textContent=score;document.getElementById('level').textContent=level;document.getElementById('lives').textContent=lives;
+        }
+        function drawGame() {drawBackground();drawPlatforms();drawCoins();drawObstacles();drawPlayer();drawParticles();}
+        function drawRialoLogo(x,y,size,rotation) {
+            ctx.save();ctx.translate(x,y);ctx.rotate(rotation);ctx.shadowColor='#ff00ff';ctx.shadowBlur=20;
+            ctx.fillStyle='#000000';ctx.strokeStyle='#ff00ff';ctx.lineWidth=1;const scale=size/100;
+            ctx.beginPath();ctx.roundRect(-40*scale,-35*scale,60*scale,18*scale,9*scale);ctx.fill();
+            ctx.beginPath();ctx.roundRect(15*scale,-35*scale,30*scale,18*scale,9*scale);ctx.fill();
+            ctx.beginPath();ctx.roundRect(-40*scale,-8*scale,70*scale,18*scale,9*scale);ctx.fill();
+            ctx.beginPath();ctx.roundRect(-40*scale,18*scale,18*scale,35*scale,9*scale);ctx.fill();
+            ctx.strokeStyle='#ff00ff';ctx.lineWidth=0.5;
+            ctx.beginPath();ctx.roundRect(-40*scale,-35*scale,60*scale,18*scale,9*scale);ctx.stroke();
+            ctx.beginPath();ctx.roundRect(15*scale,-35*scale,30*scale,18*scale,9*scale);ctx.stroke();
+            ctx.beginPath();ctx.roundRect(-40*scale,-8*scale,70*scale,18*scale,9*scale);ctx.stroke();
+            ctx.beginPath();ctx.roundRect(-40*scale,18*scale,18*scale,35*scale,9*scale);ctx.stroke();
+            ctx.restore();
+        }
+        function drawPlayer() {
+            ctx.save();ctx.shadowColor=player.color;ctx.shadowBlur=15;ctx.fillStyle=player.color;
+            ctx.fillRect(player.x-camera.x,player.y,player.width,player.height);
+            ctx.fillStyle='#ffffff';ctx.fillRect(player.x-camera.x+8,player.y+8,4,4);ctx.fillRect(player.x-camera.x+20,player.y+8,4,4);
+            ctx.fillStyle='#ffff00';ctx.font='12px Orbitron';ctx.fillText('₿',player.x-camera.x+12,player.y+24);ctx.restore();
+        }
+        function drawPlatforms() {
+            platforms.forEach(platform=>{
+                if(platform.x-camera.x+platform.width>0&&platform.x-camera.x<canvas.width){
+                    ctx.save();platform.glow+=0.05;
+                    ctx.shadowColor=`hsl(${180+Math.sin(platform.glow)*60},100%,50%)`;
+                    ctx.shadowBlur=10+Math.sin(platform.glow)*5;
+                    const gradient=ctx.createLinearGradient(0,platform.y,0,platform.y+platform.height);
+                    gradient.addColorStop(0,'#003366');gradient.addColorStop(1,'#001133');ctx.fillStyle=gradient;
+                    ctx.fillRect(platform.x-camera.x,platform.y,platform.width,platform.height);
+                    ctx.fillStyle='#00ffff';ctx.fillRect(platform.x-camera.x,platform.y,platform.width,2);ctx.restore();
                 }
             });
-            
-            // Coin collection
-            coins.forEach(coin => {
-                if (!coin.collected) {
-                    const dx = player.x + player.width/2 - (coin.x + coin.size/2);
-                    const dy = player.y + player.height/2 - (coin.y + coin.size/2);
-                    const distance = Math.sqrt(dx*dx + dy*dy);
-                    
-                    if (distance < (coin.size/2 + player.width/2)) {
-                        coin.collected = true;
-                        score += 100;
-                        
-                        // Create particle effect
-                        for (let i = 0; i < 8; i++) {
-                            particles.push({
-                                x: coin.x,
-                                y: coin.y,
-                                velX: (Math.random() - 0.5) * 10,
-                                velY: (Math.random() - 0.5) * 10,
-                                life: 30,
-                                color: '#ffff00'
-                            });
-                        }
-                    }
+        }
+        function drawObstacles(){obstacles.forEach(obstacle=>{if(obstacle.x-camera.x+obstacle.size>0&&obstacle.x-camera.x<canvas.width)drawRialoLogo(obstacle.x-camera.x+obstacle.size/2,obstacle.y+obstacle.size/2,obstacle.size,obstacle.rotation);});}
+        function drawCoins() {
+            coins.forEach(coin=>{
+                if(!coin.collected&&coin.x-camera.x+coin.size>0&&coin.x-camera.x<canvas.width){
+                    coin.rotation+=0.1;coin.glow+=0.15;
+                    ctx.save();ctx.translate(coin.x-camera.x+coin.size/2,coin.y+coin.size/2);ctx.rotate(coin.rotation);
+                    ctx.shadowColor='#ffff00';ctx.shadowBlur=15+Math.sin(coin.glow)*5;ctx.fillStyle='#ffff00';
+                    ctx.beginPath();ctx.arc(0,0,coin.size/2,0,Math.PI*2);ctx.fill();
+                    ctx.fillStyle='#ffffff';ctx.font='12px Orbitron';ctx.textAlign='center';ctx.fillText('₿',0,4);ctx.restore();
                 }
             });
-            
-            // Update particles
-            particles = particles.filter(particle => {
-                particle.x += particle.velX;
-                particle.y += particle.velY;
-                particle.life--;
-                return particle.life > 0;
-            });
-            
-            // Level progression
-            if (score > level * 1000) {
-                level++;
-                gameSpeed += 0.5;
-                // Add more obstacles for higher levels
-                if (level % 2 === 0) {
-                   
+        }
+        function drawParticles(){particles.forEach(particle=>{ctx.save();ctx.fillStyle=particle.color;ctx.globalAlpha=particle.life/30;ctx.beginPath();ctx.arc(particle.x-camera.x,particle.y,3,0,Math.PI*2);ctx.fill();ctx.restore();});}
+        function drawBackground() {
+            const gradient=ctx.createLinearGradient(0,0,0,canvas.height);gradient.addColorStop(0,'#001122');gradient.addColorStop(0.5,'#003344');gradient.addColorStop(1,'#001133');
+            ctx.fillStyle=gradient;ctx.fillRect(0,0,canvas.width,canvas.height);
+            ctx.save();backgroundElements.forEach(element=>{if(element.x-camera.x*0.5+200>0&&element.x-camera.x*0.5<canvas.width){ctx.globalAlpha=element.alpha;ctx.fillStyle='#00ffff';ctx.font=`${40*element.scale}px Orbitron`;ctx.fillText(element.text,element.x-camera.x*0.5,element.y);}});ctx.restore();
+        }
+        function gameOver() {
+            gameRunning=false;
+            document.getElementById('gameOverScreen').classList.remove('hidden');
+            document.getElementById('finalScore').textContent='Final Score: '+score;
+        }
+        function startGame() {
+            document.getElementById('startScreen').classList.add('hidden');
+            document.getElementById('gameOverScreen').classList.add('hidden');
+            score=0;level=1;lives=3;gameSpeed=2;initGame();gameRunning=true;gameLoop();
+        }
+        function restartGame(){startGame();}
+        // Make buttons work anywhere: mobile, desktop, local
+        window.startGame = startGame;
+        window.restartGame = restartGame;
+    </script>
+</body>
+</html>
